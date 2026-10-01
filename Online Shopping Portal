@@ -1,0 +1,88 @@
+# Online Shopping Portal
+
+products = {
+    1: {"name": "Laptop", "price": 55000},
+    2: {"name": "Smartphone", "price": 25000},
+    3: {"name": "Headphones", "price": 2000},
+    4: {"name": "Smart Watch", "price": 3500},
+    5: {"name": "Keyboard", "price": 1200}
+}
+
+cart = {}
+
+def display_products():
+    print("\n------ PRODUCTS ------")
+    for pid, product in products.items():
+        print(f"{pid}. {product['name']} - ₹{product['price']}")
+
+def add_to_cart():
+    display_products()
+    pid = int(input("\nEnter product ID: "))
+
+    if pid in products:
+        qty = int(input("Enter quantity: "))
+        cart[pid] = cart.get(pid, 0) + qty
+        print("Product added to cart successfully!")
+    else:
+        print("Invalid product ID.")
+
+def view_cart():
+    if not cart:
+        print("\nYour cart is empty.")
+        return
+
+    print("\n------ YOUR CART ------")
+    total = 0
+
+    for pid, qty in cart.items():
+        product = products[pid]
+        amount = product["price"] * qty
+        total += amount
+        print(f"{product['name']} x {qty} = ₹{amount}")
+
+    print("-----------------------")
+    print(f"Total Amount: ₹{total}")
+
+def checkout():
+    if not cart:
+        print("\nYour cart is empty.")
+        return
+
+    view_cart()
+    choice = input("\nProceed to checkout? (yes/no): ")
+
+    if choice.lower() == "yes":
+        print("\nOrder placed successfully!")
+        print("Thank you for shopping with us!")
+        cart.clear()
+    else:
+        print("Checkout cancelled.")
+
+while True:
+    print("\n===== ONLINE SHOPPING PORTAL =====")
+    print("1. View Products")
+    print("2. Add Product to Cart")
+    print("3. View Cart")
+    print("4. Checkout")
+    print("5. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        display_products()
+
+    elif choice == "2":
+        add_to_cart()
+
+    elif choice == "3":
+        view_cart()
+
+    elif choice == "4":
+        checkout()
+
+    elif choice == "5":
+        print("Thank you! Visit again.")
+        break
+
+    else:
+        print("Invalid choice. Please try again.")
